@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8">
+   <title>Drag And Drop HTML5 File Edition</title>
+   <script>
+     function initialize()
+     {
+       if(window.File && window.FileList && window.FileReader)
+       {
+         var dropTarget = document.getElementById('dropTGT');
+         dropTarget.addEventListener("dragover", dragOver, false);
+         dropTarget.addEventListener("drop", dropFile, false);
+         dropTarget.addEventListener("dragleave", dragLeave, false);
+       }
+       else
+       {
+         alert("Houston! We have a problem! No support for HTML5!!!!!!");
+       }
+     }
+     function dragOver(evt)
+     {
+       evt.stopPropagation();
+       evt.preventDefault();
+       var dropTarget = document.getElementById('dropTGT');
+       dropTarget.style.backgroundColor = 'blue';
+     }
+     function dropFile(evt)
+     {
+       evt.stopPropagation();
+       evt.preventDefault();
+       var index;
+       var text = '';
+       for(index = 0; index<evt.dataTransfer.files.length; index++)
+       {
+         var fileNum = index+1;
+         text += 'File ' + fileNum + '\n';
+         var file = evt.dataTransfer.files[index];
+         text += 'Filename :: ' + file.name + '\n' +'File Size (Bytes) :: ' +  file.size + '\n' + 'File Type :: ' + file.type + '\n\n';
+       }
+       document.getElementById('messageBoard').value = text;
+     }
+     function dragLeave(evt)
+     {
+       evt.stopPropagation();
+       evt.preventDefault();
+       var dropTarget = document.getElementById('dropTGT');
+       dropTarget.style.backgroundColor = 'red';
+     }
+   </script>
+ </head>
+ <body onload = "initialize()">
+   <textarea id = "messageBoard" cols="100" rows="100"></textarea>
+   <div id="dropTGT" style="position:absolute;background-color:red;left:800px;top:100px;width:600px;height:200px">
+   </div>
+ </body>
+</html>

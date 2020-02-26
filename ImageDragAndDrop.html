@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    	<meta charset="UTF-8">
+      <title>Drag And Drop HTML5 Edition</title>
+      <script>
+        function addHandlers()
+        {
+          document.getElementById('jet').addEventListener('dragstart', dragStrt, false);
+          document.getElementById('jet').addEventListener('dragend', dragEnd, false);
+          document.getElementById('TGT').addEventListener('dragenter', dragEnter, false);
+          document.getElementById('TGT').addEventListener('dragover', dragOver, false);
+          document.getElementById('TGT').addEventListener('dragleave', dragLeave, false);
+          document.getElementById('TGT').addEventListener('drop', drop, false);
+        }
+        function dragStrt(evt)
+        {
+          var imgTarget = document.getElementById('jet');
+          imgTarget.style.borderStyle = 'solid';
+          evt.dataTransfer.setData("Text", evt.target.id);
+        }
+        function dragEnd(evt)
+        {
+          var imgTarget = document.getElementById('jet');
+          imgTarget.style.borderStyle = 'none';
+        }
+        function dragEnter(evt)
+        {
+          var divTarget = document.getElementById('TGT');
+          divTarget.style.borderStyle = 'solid';
+        }
+        function dragOver(evt)
+        {
+          evt.preventDefault();
+        }
+        function dragLeave(evt)
+        {
+          var divTarget = document.getElementById('TGT');
+          divTarget.style.borderStyle = 'none';
+        }
+        function drop(evt)
+        {
+          var data = evt.dataTransfer.getData("Text");
+          evt.target.appendChild(document.getElementById(data));
+        }
+      </script>
+  </head>
+<body onload = 'addHandlers()'>
+  <img src='sample_image.jpeg' id='jet' draggable = 'true'>
+  <div id='TGT' style="position:absolute;color:black;background-color:blue;left:800px;top:100px;width:600px;height:417px">
+  </div>
+</body>
+</html>

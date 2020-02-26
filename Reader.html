@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>Reader</title>
+		  <script>
+        function initialize()
+        {
+          if(window.File && window.FileList && window.FileReader)
+          {
+            var dropTarget = document.getElementById('dropTGT');
+            dropTarget.addEventListener("dragenter", dragEnter, false);
+            dropTarget.addEventListener("dragover", dragOver, false);
+            dropTarget.addEventListener("drop", dropFile, false);
+            dropTarget.addEventListener("dragleave", dragLeave, false);
+          }
+          else
+          {
+            alert("Houston! We have a problem! No support for HTML5!!!!!!");
+          }
+        }
+        function dragEnter(evt)
+        {
+          evt.stopPropagation();
+          evt.preventDefault();
+          var dropTarget = document.getElementById('dropTGT');
+          dropTarget.style.backgroundColor = 'blue';
+        }
+        function dragOver(evt)
+        {
+          evt.stopPropagation();
+          evt.preventDefault();
+        }
+        function dropFile(evt)
+        {
+          evt.stopPropagation();
+          evt.preventDefault();
+          var files = evt.dataTransfer.files;
+          if (files.length > 0)
+            handleFiles(files);
+        }
+        function dragLeave(evt)
+        {
+          evt.stopPropagation();
+          evt.preventDefault();
+          var dropTarget = document.getElementById('dropTGT');
+          dropTarget.style.backgroundColor = 'red';
+        }
+        function handleFiles(daFiles)
+        {
+          var reader = new FileReader();
+          reader.onload = handleReaderLoad;
+          reader.readAsDataURL(daFiles[0]);
+        }
+        function handleReaderLoad(evt)
+        {
+          var imageArea = document.getElementById('imgTGT');
+          imageArea.src = evt.target.result;
+        }
+      </script>
+</head>
+  <body onload = 'initialize()'>
+    <div id="dropTGT" style="position:absolute;color:black;background-color:red;width:300px;height:300px;left:1000px;top:25px"></div>
+    <img id = "imgTGT" src = ""></img>
+  </body>
+</html>

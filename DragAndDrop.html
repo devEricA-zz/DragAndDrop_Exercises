@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>Drag And Drop</title>
+		<script>
+			var selectedDiv = null;
+			var offsetX;
+			var offsetY;
+			function addEventListenertoDiv()
+			{
+				var divList = document.getElementsByTagName('div');
+				for(var x=0; x<divList.length; x++)
+				{
+					divList[x].addEventListener('mousedown', dragStart, false);
+				}
+			}
+			function dragStart(evt)
+			{
+				offsetX = evt.offsetX;
+				offsetY = evt.offsetY;
+				selectedDiv = evt.target;
+				document.addEventListener('mousemove', drag, false);
+				document.addEventListener('mouseup', dragEnd, false);
+				return false;
+			}
+			function drag(evt)
+			{
+				selectedDiv.style.left = parseInt(evt.clientX - offsetX) + 'px';
+				selectedDiv.style.top = parseInt(evt.clientY - offsetY) + 'px';
+				return false;
+			}
+			function dragEnd(evt)
+			{
+				document.removeEventListener('mousemove', drag, false);
+				document.removeEventListener('mouseup', dragEnd, false);
+			}
+		</script>
+</head>
+<body onload='addEventListenertoDiv()'>
+
+	<div id="div_TGT" style="position:absolute;color:black;background-color:blue;width:100px;height:100px;left:64px;top:64px">
+	</div>
+	<div id='TGT_2' style=position:absolute;color:black;background-color:black;width:100px;height:100px;left:128px;top:128px"
+</body>
+</html>
