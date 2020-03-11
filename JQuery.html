@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>JQuery</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet"
+      href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
+		<script>
+      function load_value(value)
+      {
+        var textField = document.getElementById('rangeValDisplay');
+        textField.value = 'Input slider clocked at :: ' + value;
+      }
+      function loadSlider()
+      {
+        $("#slider").slider({ value: [50] });
+        $("#slider").on(
+          { slide:
+            function() {
+              var setting = $("#slider").slider("option", "value");
+              document.getElementById('divValDisplay').value = 'Div slider clocked at :: ' + setting;}}
+        );
+      }
+    </script>
+</head>
+<body onload = 'loadSlider()'>
+    <input type='range' onchange='load_value(this.value)' min = '-1000' max = '1000'></input>
+    <textarea id = 'rangeValDisplay' cols ='50' rows = '1'></textarea>
+    <textarea id = 'divValDisplay' cols = '50' rows = '1'></textarea>
+    <div id = 'slider'></div>
+  </body>
+</html>
